@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-export default function TaskCreator() {
+export default function TaskCreator({ createNewTask }) {
   const [newTaskName, setNewTaskName] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    createNewTask(newTaskName)
 
     localStorage.setItem('tasks', newTaskName)
 
@@ -25,4 +28,8 @@ export default function TaskCreator() {
       </form>
     </>
   )
+}
+
+TaskCreator.propTypes = {
+  createNewTask: PropTypes.func.isRequired,
 }

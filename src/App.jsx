@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import TaskCreator from './components/TaskCreator'
 
 import './App.css'
+import TaskTable from './components/TaskTable'
 
 function App() {
   const [tasksItems, setTasksItems] = useState([])
@@ -11,6 +12,14 @@ function App() {
     if (!tasksItems.find((task) => task.name === taskName)) {
       setTasksItems([...tasksItems, { name: taskName, done: false }])
     }
+  }
+
+  function toggleTask(task) {
+    const taskFind = tasksItems.map((t) =>
+      t.name === task.name ? { ...t, done: !t.done } : t
+    )
+
+    setTasksItems(taskFind)
   }
 
   useEffect(() => {
@@ -29,20 +38,7 @@ function App() {
     <>
       <TaskCreator createNewTask={createNewTask} />
 
-      <table>
-        <thead>
-          <tr>
-            <th>Tasks</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasksItems.map((task) => (
-            <tr key={task.name}>
-              <td>{task.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TaskTable tasksItems={tasksItems} toggleTask={toggleTask} />
     </>
   )
 }

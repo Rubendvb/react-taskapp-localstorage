@@ -1,22 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import TaskCreator from './components/TaskCreator'
 
 import './App.css'
 
 function App() {
-  const [tasksItems, setTasksItems] = useState([
-    { name: 'Task 1', done: false },
-    { name: 'Task 2', done: false },
-    { name: 'Task 3', done: false },
-    { name: 'Task 4', done: false },
-  ])
+  const [tasksItems, setTasksItems] = useState([])
 
   function createNewTask(taskName) {
     if (!tasksItems.find((task) => task.name === taskName)) {
       setTasksItems([...tasksItems, { name: taskName, done: false }])
     }
   }
+
+  useEffect(() => {
+    const data = localStorage.getItem('tasks')
+
+    if (data) {
+      setTasksItems(JSON.parse(data))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasksItems))
+  }, [tasksItems])
 
   return (
     <>

@@ -9,8 +9,6 @@ export default function TaskCreator({ createNewTask }) {
 
     createNewTask(newTaskName)
 
-    localStorage.setItem('tasks', newTaskName)
-
     setNewTaskName('')
   }
   return (

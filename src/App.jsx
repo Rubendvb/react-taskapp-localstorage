@@ -39,6 +39,12 @@ function App() {
       <TaskCreator createNewTask={createNewTask} />
 
       <TaskTable tasksItems={tasksItems} toggleTask={toggleTask} />
+
+      <TaskTable
+        tasksItems={tasksItems}
+        toggleTask={toggleTask}
+        showCompleted={true}
+      />
     </>
   )
 }

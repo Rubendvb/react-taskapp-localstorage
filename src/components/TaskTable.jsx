@@ -1,7 +1,19 @@
 import PropTypes from 'prop-types'
 import TaskRow from './TaskRow'
 
-export default function TaskTable({ tasksItems, toggleTask }) {
+export default function TaskTable({
+  tasksItems,
+  toggleTask,
+  showCompleted = false,
+}) {
+  const taskTableRow = (doneValue) => {
+    return tasksItems
+      .filter((task) => task.done === doneValue)
+      .map((task) => (
+        <TaskRow key={task.name} task={task} toggleTask={toggleTask} />
+      ))
+  }
+
   return (
     <>
       <table>
@@ -10,11 +22,7 @@ export default function TaskTable({ tasksItems, toggleTask }) {
             <th>Tasks</th>
           </tr>
         </thead>
-        <tbody>
-          {tasksItems.map((task) => (
-            <TaskRow key={task.name} task={task} toggleTask={toggleTask} />
-          ))}
-        </tbody>
+        <tbody>{taskTableRow(showCompleted)}</tbody>
       </table>
     </>
   )
@@ -23,4 +31,5 @@ export default function TaskTable({ tasksItems, toggleTask }) {
 TaskTable.propTypes = {
   tasksItems: PropTypes.array.isRequired,
   toggleTask: PropTypes.func.isRequired,
+  showCompleted: PropTypes.bool,
 }

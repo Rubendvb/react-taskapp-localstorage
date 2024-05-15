@@ -5,6 +5,7 @@ import TaskCreator from './components/TaskCreator'
 import './App.css'
 import TaskTable from './components/TaskTable'
 import VisibilityControl from './components/VisibilityControl'
+import Container from './components/Container'
 
 function App() {
   const [tasksItems, setTasksItems] = useState([])
@@ -42,25 +43,24 @@ function App() {
   }, [tasksItems])
 
   return (
-    <>
-      <TaskCreator createNewTask={createNewTask} />
-
-      <TaskTable tasksItems={tasksItems} toggleTask={toggleTask} />
-
-      <VisibilityControl
-        isChecked={showCompleted}
-        setShowCompleted={(checked) => setShowCompleted(checked)}
-        cleanTasks={cleanTasks}
-      />
-
-      {showCompleted && (
-        <TaskTable
-          tasksItems={tasksItems}
-          toggleTask={toggleTask}
-          showCompleted={showCompleted}
+    <main className="bg-dark vh-100 text-white">
+      <Container>
+        <TaskCreator createNewTask={createNewTask} />
+        <TaskTable tasksItems={tasksItems} toggleTask={toggleTask} />
+        <VisibilityControl
+          isChecked={showCompleted}
+          setShowCompleted={(checked) => setShowCompleted(checked)}
+          cleanTasks={cleanTasks}
         />
-      )}
-    </>
+        {showCompleted && (
+          <TaskTable
+            tasksItems={tasksItems}
+            toggleTask={toggleTask}
+            showCompleted={showCompleted}
+          />
+        )}
+      </Container>
+    </main>
   )
 }
 

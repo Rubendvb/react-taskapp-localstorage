@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 export default function TaskRow({ task, toggleTask }) {
   return (
     <tr>
-      <td>
+      <td className="d-flex justify-content-between">
         {task.name}{' '}
         <input
           type="checkbox"

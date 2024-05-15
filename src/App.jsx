@@ -4,6 +4,7 @@ import TaskCreator from './components/TaskCreator'
 
 import './App.css'
 import TaskTable from './components/TaskTable'
+import VisibilityControl from './components/VisibilityControl'
 
 function App() {
   const [tasksItems, setTasksItems] = useState([])
@@ -21,6 +22,11 @@ function App() {
     )
 
     setTasksItems(taskFind)
+  }
+
+  const cleanTasks = () => {
+    setTasksItems(tasksItems.filter((task) => !task.done))
+    setShowCompleted(false)
   }
 
   useEffect(() => {
@@ -41,15 +47,11 @@ function App() {
 
       <TaskTable tasksItems={tasksItems} toggleTask={toggleTask} />
 
-      <div>
-        <input
-          type="checkbox"
-          name="show"
-          id="show"
-          onChange={() => setShowCompleted(!showCompleted)}
-        />
-        <label htmlFor="show">Show Tasks Done</label>
-      </div>
+      <VisibilityControl
+        isChecked={showCompleted}
+        setShowCompleted={(checked) => setShowCompleted(checked)}
+        cleanTasks={cleanTasks}
+      />
 
       {showCompleted && (
         <TaskTable
